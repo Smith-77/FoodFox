@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 style="margin: 25px 0 25px 0">{% block title %} Hunt for Recipes {% endblock %}</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+                <div class="message_flash">{{ message }}</div>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="post">
+        <div class="form-group">
+            <label for="title">Recipe Name</label>
+            <input type="text" name="recipe_name"
+                   placeholder="Recipe Name" class="form-control"
+                   value="{{ request.form['recipe_name'] }}"></input>
+        </div>
+        <div class="form-group">
+            <label for="website">Choose a website</label><br>
+                <select class="form-control" name="website" id="website" value="{{ request.form['website'] }}">
+                    <!-- <option value="" selected disabled>Select a website</option> -->
+                    {% for website in websites %}
+                        <option value="{{ website }}">{{website}}</option>
+                    {% endfor %}
+                </select>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+{% endblock %}
